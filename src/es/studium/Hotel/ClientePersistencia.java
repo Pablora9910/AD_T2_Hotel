@@ -77,14 +77,16 @@ public class ClientePersistencia {
 	}
  
 	public static boolean deleteCliente(int idCliente) {
+		boolean delete = false;
 		try {
 			sentencia = "delete from clientes where idCliente ='"+idCliente+"';";
 			statement = connection.prepareStatement(sentencia);
 			statement.executeUpdate(sentencia);
-		} catch (Exception e) {
-			// TODO: handle exception
+			delete = true ;
+		} catch (SQLException e) {
+			delete = false;
 		}
-		return false;
+		return delete;
 	}
 
 }
