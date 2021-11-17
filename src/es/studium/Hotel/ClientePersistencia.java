@@ -2,6 +2,7 @@ package es.studium.Hotel;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ClientePersistencia {
@@ -60,14 +61,16 @@ public class ClientePersistencia {
 	}
  
 	public static boolean updateCliente(int idCliente, String campo, String nuevoValor) {
+		boolean update = true;
 		try  
 		{
 			statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			sentencia = "update clientes set "+campo+" = '"+ nuevoValor +"' where idCliente = '"+idCliente+"' ;";
 			statement.executeUpdate(sentencia);
+			update = true;
 		}
-		catch (Exception e) {
-			// TODO: handle exception
+		catch (SQLException e) {
+			update = false;
 		}
 			
 		return false;
